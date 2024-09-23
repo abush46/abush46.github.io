@@ -1,6 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
 
+function Button() {
+  return <Button>Click here</Button>;
+}
 function App() {
   return (
     <div className="App">
@@ -9,14 +12,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Button />
         <h1>Hellow world</h1>
         <h2>Welcome to my react App</h2>
       </header>
