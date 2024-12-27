@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Elementary School Bookstore</title>
-
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <!-- Inline CSS -->
     <style>
         body {
@@ -13,51 +14,62 @@
             margin: 0;
             padding: 20px;
         }
+
         header {
             background-color: #007BFF;
             color: white;
             padding: 10px;
             text-align: center;
         }
+
         header h1 {
             margin: 0;
         }
+
         .menu {
             margin: 10px 0;
         }
+
         .menu a {
             color: white;
             margin: 0 15px;
             text-decoration: none;
         }
+
         .dropdown {
             display: inline-block;
             position: relative;
         }
+
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: #f9f9f9;
             min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
+
         .dropdown-content a {
             color: black;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
         }
+
         .dropdown-content a:hover {
             background-color: #f1f1f1;
         }
+
         .dropdown:hover .dropdown-content {
             display: block;
         }
+
         .search-container {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .book {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -65,13 +77,16 @@
             margin: 10px 0;
             background-color: #fff;
         }
+
         .book h2 {
             margin: 0;
             color: #007BFF;
         }
+
         .book p {
             margin: 5px 0;
         }
+
         button {
             background-color: #007BFF;
             color: white;
@@ -80,9 +95,11 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
         button:hover {
             background-color: #0056b3;
         }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -93,10 +110,11 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
             padding-top: 60px;
         }
+
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto;
@@ -105,12 +123,14 @@
             width: 80%;
             max-width: 600px;
         }
+
         .close {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
+
         .close:hover,
         .close:focus {
             color: black;
@@ -119,12 +139,13 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
         <h1>Free Elementary School Bookstore</h1>
         <div class="menu">
-            <a href="#">User: John Doe</a>
+            <a href="#">User:<p id="username"> </p></a>
             <div class="dropdown">
                 <a href="#">Categories</a>
                 <div class="dropdown-content">
@@ -197,16 +218,22 @@
         }
 
         // Function to close the modal
-        document.querySelector('.close').onclick = function() {
+        document.querySelector('.close').onclick = function () {
             document.getElementById('myModal').style.display = "none";
         }
 
         // Close modal when clicking outside of it
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const modal = document.getElementById('myModal');
             if (event.target === modal) {
                 modal.style.display = "none";
             }
+        }
+        if (window.Telegram?.webApp) {
+            document.getElementById('username').innerHTML = window.Telegram.WebApp.initDataUnsafe?.user.first_name;
+        }
+        else {
+            document.getElementById('username').innerHTML = "LOGIN";
         }
 
         // Call the function to display books on page load
@@ -214,4 +241,5 @@
     </script>
 
 </body>
+
 </html>
