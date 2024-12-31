@@ -1074,7 +1074,7 @@ const DemoApp = {
     ); */
 
     const authData = DemoApp.initData || "";
-    fetch("/demo/api", {
+    fetch("https://micbot.netlify.app/api/bot", {
       method: "POST",
       body: JSON.stringify(
         Object.assign(data, {
