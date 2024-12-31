@@ -1063,7 +1063,7 @@ const DemoApp = {
     // DISABLE BACKEND FOR FRONTEND DEMO
     // YOU CAN USE YOUR OWN REQUESTS TO YOUR OWN BACKEND
     // CHANGE THIS CODE TO YOUR OWN
-    return (
+    /* return (
       onCallback &&
       onCallback({
         error:
@@ -1071,7 +1071,7 @@ const DemoApp = {
           method +
           ") should send requests to your backend. Please, change this code to your own.",
       })
-    );
+    ); */
 
     const authData = DemoApp.initData || "";
     fetch("/demo/api", {
