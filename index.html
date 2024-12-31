@@ -5,138 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Elementary School Bookstore</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    </link>
     <!-- Inline CSS -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
 
-        header {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        .menu {
-            margin: 10px 0;
-        }
-
-        .menu a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-
-        .dropdown {
-            display: inline-block;
-            position: relative;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .search-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .book {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: #fff;
-        }
-
-        .book h2 {
-            margin: 0;
-            color: #007BFF;
-        }
-
-        .book p {
-            margin: 5px 0;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
     </style>
 </head>
 
@@ -178,67 +52,8 @@
     </div>
 
     <!-- Inline JavaScript -->
-    <script>
-        // Array of books with content
-        const books = [
-            { title: "The Cat in the Hat", author: "Dr. Seuss", content: "The Cat in the Hat comes to play on a rainy day..." },
-            { title: "Charlotte's Web", author: "E.B. White", content: "Wilbur the pig is frightened of being slaughtered..." },
-            { title: "Harry Potter and the Sorcerer's Stone", author: "J.K. Rowling", content: "Harry discovers he is a wizard on his 11th birthday..." },
-            { title: "Where the Wild Things Are", author: "Maurice Sendak", content: "Max sails to the land of the Wild Things..." }
-        ];
-
-        // Function to display books
-        function displayBooks(filteredBooks = books) {
-            const bookList = document.getElementById('book-list');
-            bookList.innerHTML = ''; // Clear previous entries
-            filteredBooks.forEach(book => {
-                const bookDiv = document.createElement('div');
-                bookDiv.className = 'book';
-                bookDiv.innerHTML = `
-                    <h2>${book.title}</h2>
-                    <p>Author: ${book.author}</p>
-                    <button onclick="openModal('${book.title}', '${book.content}')">Read</button>
-                `;
-                bookList.appendChild(bookDiv);
-            });
-        }
-
-        // Function to filter books based on search input
-        function filterBooks() {
-            const searchInput = document.getElementById('search-bar').value.toLowerCase();
-            const filteredBooks = books.filter(book => book.title.toLowerCase().includes(searchInput));
-            displayBooks(filteredBooks);
-        }
-
-        // Function to open the modal and display book content
-        function openModal(title, content) {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-content').innerText = content;
-            document.getElementById('myModal').style.display = "block";
-        }
-
-        // Function to close the modal
-        document.querySelector('.close').onclick = function () {
-            document.getElementById('myModal').style.display = "none";
-        }
-
-        // Close modal when clicking outside of it
-        window.onclick = function (event) {
-            const modal = document.getElementById('myModal');
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
-        if (window.Telegram?.webApp) {
-            document.getElementById('username').innerHTML = window.Telegram.WebApp.initDataUnsafe?.user.first_name;
-        }
-        else {
-            document.getElementById('username').innerHTML = "LOGIN";
-        }
-
-        // Call the function to display books on page load
-        displayBooks();
-    </script>
+    <script src="script.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 </body>
 
