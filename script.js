@@ -66,11 +66,14 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
-if (window.Telegram?.webApp) {
-  document.getElementById("username").innerHTML =
-    window.Telegram.WebApp.initDataUnsafe?.user.first_name;
-} else {
-  document.getElementById("username").innerHTML = "LOGIN";
+function btnClick() {
+  console.log(window.Telegram.WebApp.initDataUnsafe);
+  if (window.Telegram.webApp) {
+    document.getElementById("username").innerHTML =
+      window.Telegram.WebApp.initDataUnsafe.user.first_name;
+  } else {
+    document.getElementById("username").innerHTML = "LOGIN";
+  }
 }
 
 // Call the function to display books on page load
