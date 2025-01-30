@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Elementary School Bookstore</title>
+
+    <link rel="stylesheet" href="style.css">
+    </link>
+    <!-- Inline CSS -->
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Bookstore</h1>
+        <button onclick="btnClick">Click</button>
+        <div class="menu">
+            <a href="#">User:<p id="username"> </p></a>
+            <div class="dropdown">
+                <a href="#">Categories</a>
+                <div class="dropdown-content">
+                    <a href="/public/index.html?q=1">Fiction</a>
+                    <a href="#">Non-Fiction</a>
+                    <a href="#">Science</a>
+                    <a href="#">History</a>
+                    <a href="#">Fantasy</a>
+                </div>
+            </div>
+            <a href="#">About</a>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search for books by title..." onkeyup="filterBooks()">
+    </div>
+
+    <div id="book-list">
+        <!-- Book items will be displayed here -->
+    </div>
+
+    <!-- Modal for reading books -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-content"></p>
+        </div>
+    </div>
+
+    <!-- Inline JavaScript -->
+    <script src="script.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+</body>
+
+</html>
