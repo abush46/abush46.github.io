@@ -1,429 +1,441 @@
-function showExamMarks() {
-    //MSK-000109
+function calChange() {
+  //Printing per Sheets
+  var printW = document.getElementById("printW").value;
+  var printH = document.getElementById("printH").value;
+  var paperW = document.getElementById("paperW").value;
+  var paperH = document.getElementById("paperH").value;
+  var stright_cal = Math.floor(
+    parseInt(paperH / printH) * parseInt(paperW / printW)
+  );
+  var angle_cal = Math.floor(
+    parseInt(paperW / printH) * parseInt(paperH / printW)
+  );
+  var max_value = Math.max(stright_cal, angle_cal);
+  var printing_sheets = (document.getElementById("printing_sheets").innerHTML =
+    max_value);
 
-    var index = document.getElementById("index").value;
-    var do1 = "getStudentMarks";
-    var session = document.getElementById("session").value;
-    var exam = document.getElementById("exam").value;
+  //Total Sheets will need.
+  var PQty = document.getElementById("PQty").value;
+  var total_sheets = (document.getElementById("total_sheets").innerHTML =
+    Math.round(PQty / printing_sheets));
 
-    if (exam == 'Select Exam') {
-        $("#btnSubmit").attr("disabled", true);
-        $('#exam').addClass('is-invalid has-feedback');
+  //Total Packet
+  var packet_sheets = document.getElementById("packet_sheets").value;
+  document.getElementById("total_packets").innerHTML = parseFloat(
+    total_sheets / packet_sheets
+  ).toFixed(2);
 
-        $('#divExam1').append(
-            '<p id="spanExam" class="far fa-times-circle is-invalid" style="color:red;">The exam is required</p>'
-        );
+  //Total Printing Impressions (Small Demy)
+  var printing_Color = document.getElementById("printing_Color").value;
+  var printing_Color_side = document.getElementById(
+    "printing_Color_side"
+  ).value;
 
-        $("#exam").change(function() {
-            //MSK-00128-classroom
-            $("#btnSubmit").attr("disabled", false);
-            $('#exam').removeClass('is-invalid has-feedback');
-            $('#spanExam').remove();
+  document.getElementById("SDW").innerHTML = Math.round(paperW / 2);
+  document.getElementById("SDH").innerHTML = Math.round(paperH / 2 / 2);
+  document.getElementById("SDW_qty").innerHTML = Math.round(
+    (PQty / (printing_sheets / 8)) * (printing_Color * printing_Color_side)
+  );
 
-        });
+  //Total Printing Impressions (Quarter Size Demy)
+  document.getElementById("QDW").innerHTML = Math.round(paperW / 2);
+  document.getElementById("QDH").innerHTML = Math.round(paperH / 2);
+  document.getElementById("QDW_qty").innerHTML = Math.round(
+    (PQty / (printing_sheets / 4)) * (printing_Color * printing_Color_side)
+  );
 
-    } else {
-        var xhttp = new XMLHttpRequest(); //MSK-000110-Start Ajax  
-        xhttp.onreadystatechange = function() {
+  //Total Printing Impressions (Half Size Demy)
+  document.getElementById("HDW").innerHTML = Math.round(paperW);
+  document.getElementById("HDH").innerHTML = Math.round(paperH / 2);
+  document.getElementById("HDW_qty").innerHTML = Math.round(
+    (PQty / (printing_sheets / 2)) * (printing_Color * printing_Color_side)
+  );
 
-            if (this.readyState == 4 && this.status == 200) {
+  //Total Printing Impressions (Full Size DD)
+  document.getElementById("FDW").innerHTML = Math.round(paperW);
+  document.getElementById("FDH").innerHTML = Math.round(paperH);
+  document.getElementById("FDW_qty").innerHTML = Math.round(
+    (PQty / printing_sheets) * (printing_Color * printing_Color_side)
+  );
 
-                document.getElementById('table1').innerHTML = this.responseText; //MSK-000111
-                window.scrollTo(0, document.body.scrollHeight);
-                var subject = document.getElementById('chartLable').value;
-                var marks = document.getElementById('chartData').value;
-                showBarChart(subject, marks);
+  //Per Sheet Cost
+  var packet_price = document.getElementById("packet_price").value;
+  var sheet_cost = (document.getElementById("sheet_cost").innerHTML =
+    parseFloat(packet_price / packet_sheets).toFixed(2));
 
-                $(function() {
-                    $("#example1").DataTable({
-                        "responsive": true,
-                        "lengthChange": false,
-                        "autoWidth": false,
-                        "buttons": ["pdf", "print"]
-                    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-                });
+  //Table Paper qty
+  document.getElementById("papertd_qty").innerHTML = total_sheets;
 
+  //Paper costing for all sizes
+  var paper_cost_td = (document.getElementById("paper_cost_td").innerHTML =
+    parseFloat(total_sheets * sheet_cost).toFixed(2));
+  var paper_cost_tdqty = (document.getElementById(
+    "paper_cost_tdqty"
+  ).innerHTML = parseFloat(total_sheets * sheet_cost).toFixed(2));
+  var paper_cost_tdhlf = (document.getElementById(
+    "paper_cost_tdhlf"
+  ).innerHTML = parseFloat(total_sheets * sheet_cost).toFixed(2));
+  var paper_cost_tdfull = (document.getElementById(
+    "paper_cost_tdfull"
+  ).innerHTML = parseFloat(total_sheets * sheet_cost).toFixed(2));
 
-            }
+  //Total Plate
+  var plate_tdqty = (document.getElementById("plate_tdqty").innerHTML =
+    printing_Color * printing_Color_side);
 
-        };
+  //Plate Pricing
+  var plateD = document.getElementById("plateD").value;
+  var plateDD = document.getElementById("plateDD").value;
 
-        xhttp.open("GET", "get_marks.php?exam=" + exam + "&StuId=" + index + "&Session=" + session + "&do=" + do1, true);
-        xhttp.send(); //MSK-000110-End Ajax
+  document.getElementById("plate_pricetd").innerHTML = plateD;
+  var plate_price_tdsml = (document.getElementById(
+    "plate_price_tdsml"
+  ).innerHTML = parseFloat(plate_tdqty * plateD).toFixed(2));
+  var plate_price_tdqtr = (document.getElementById(
+    "plate_price_tdqtr"
+  ).innerHTML = parseFloat(plate_tdqty * plateD).toFixed(2));
+  var plate_price_tdhtr = (document.getElementById(
+    "plate_price_tdhtr"
+  ).innerHTML = parseFloat(plate_tdqty * plateD).toFixed(2));
+  var plate_price_tdfull = (document.getElementById(
+    "plate_price_tdfull"
+  ).innerHTML = parseFloat(plate_tdqty * plateDD).toFixed(2));
 
-    }
+  //Printing Pricing
+  var printing_priceD = document.getElementById("printing_priceD").value;
+  var printing_priceDD = document.getElementById("printing_priceDD").value;
 
-};
+  var print_pricesml = (document.getElementById("print_pricesml").innerHTML =
+    parseFloat(
+      (Math.round((PQty / (printing_sheets / 8)) * plate_tdqty) / 1000) *
+        printing_priceD
+    ).toFixed(2));
+  var print_priceqty = (document.getElementById("print_priceqty").innerHTML =
+    parseFloat(
+      (Math.round((PQty / (printing_sheets / 4)) * plate_tdqty) / 1000) *
+        printing_priceD
+    ).toFixed(2));
+  var print_pricehlf = (document.getElementById("print_pricehlf").innerHTML =
+    parseFloat(
+      (Math.round((PQty / (printing_sheets / 2)) * plate_tdqty) / 1000) *
+        printing_priceD
+    ).toFixed(2));
+  var print_pricefull = (document.getElementById("print_pricefull").innerHTML =
+    parseFloat(
+      (Math.round((PQty / printing_sheets) * plate_tdqty) / 1000) *
+        printing_priceDD
+    ).toFixed(2));
 
-function showBarChart(subject, marks) {
+  //Lamination
+  var Laminatio_trqty = document.getElementById("Laminatio_trqty").value;
+  var Laminatio_trprice = document.getElementById("Laminatio_trprice").value;
+  var lamination_sml = (document.getElementById("lamination_sml").innerHTML =
+    parseFloat(Laminatio_trqty * Laminatio_trprice).toFixed(2));
+  document.getElementById("lamination_mdn").innerHTML = parseFloat(
+    Laminatio_trqty * Laminatio_trprice
+  ).toFixed(2);
+  document.getElementById("lamination_hlf").innerHTML = parseFloat(
+    Laminatio_trqty * Laminatio_trprice
+  ).toFixed(2);
+  document.getElementById("lamination_full").innerHTML = parseFloat(
+    Laminatio_trqty * Laminatio_trprice
+  ).toFixed(2);
 
-    $("#barChart").show();
-    $("#lineChart").hide();
-    $("#pieChart").hide();
-    $("#doughnutChart").hide();
+  //UV Lamination
+  var UVL_trqty = document.getElementById("UVL_trqty").value;
+  var UVL_trprice = document.getElementById("UVL_trprice").value;
+  var UVL_sml = (document.getElementById("UVL_sml").innerHTML = parseFloat(
+    UVL_trqty * UVL_trprice
+  ).toFixed(2));
+  document.getElementById("UVL_mdn").innerHTML = parseFloat(
+    UVL_trqty * UVL_trprice
+  ).toFixed(2);
+  document.getElementById("UVL_hlf").innerHTML = parseFloat(
+    UVL_trqty * UVL_trprice
+  ).toFixed(2);
+  document.getElementById("UVL_full").innerHTML = parseFloat(
+    UVL_trqty * UVL_trprice
+  ).toFixed(2);
 
-    var subject1 = JSON.parse("[" + subject + "]");
-    var marks1 = JSON.parse("[" + marks + "]");
+  //Spot Lamination
+  var SpotL_trqty = document.getElementById("SpotL_trqty").value;
+  var SpotL_trprice = document.getElementById("SpotL_trprice").value;
+  var SpotL_sml = (document.getElementById("SpotL_sml").innerHTML = parseFloat(
+    SpotL_trqty * SpotL_trprice
+  ).toFixed(2));
+  document.getElementById("SpotL_mdn").innerHTML = parseFloat(
+    SpotL_trqty * SpotL_trprice
+  ).toFixed(2);
+  document.getElementById("SpotL_hlf").innerHTML = parseFloat(
+    SpotL_trqty * SpotL_trprice
+  ).toFixed(2);
+  document.getElementById("SpotL_full").innerHTML = parseFloat(
+    SpotL_trqty * SpotL_trprice
+  ).toFixed(2);
 
-    new Chart(document.getElementById("barChart"), {
-        type: 'bar',
-        data: {
-            labels: subject1,
-            datasets: [{
-                label: "Marks",
-                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                data: marks1
-            }]
-        },
-        options: {
-            legend: {
-                display: false
-            },
-            title: {
-                display: true,
-                text: ''
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
+  //Foil Printing
+  var foil_trqty = document.getElementById("foil_trqty").value;
+  var foil_trprice = document.getElementById("foil_trprice").value;
+  var foil_sml = (document.getElementById("foil_sml").innerHTML = parseFloat(
+    foil_trqty * foil_trprice
+  ).toFixed(2));
+  document.getElementById("foil_mdn").innerHTML = parseFloat(
+    foil_trqty * foil_trprice
+  ).toFixed(2);
+  document.getElementById("foil_hlf").innerHTML = parseFloat(
+    foil_trqty * foil_trprice
+  ).toFixed(2);
+  document.getElementById("foil_full").innerHTML = parseFloat(
+    foil_trqty * foil_trprice
+  ).toFixed(2);
 
-};
+  //Normal Cutting
+  var nCutting_trqty = document.getElementById("nCutting_trqty").value;
+  var nCutting_trprice = document.getElementById("nCutting_trprice").value;
+  var nCutting_sml = (document.getElementById("nCutting_sml").innerHTML =
+    parseFloat(nCutting_trqty * nCutting_trprice).toFixed(2));
+  document.getElementById("nCutting_mdn").innerHTML = parseFloat(
+    nCutting_trqty * nCutting_trprice
+  ).toFixed(2);
+  document.getElementById("nCutting_hlf").innerHTML = parseFloat(
+    nCutting_trqty * nCutting_trprice
+  ).toFixed(2);
+  document.getElementById("nCutting_full").innerHTML = parseFloat(
+    nCutting_trqty * nCutting_trprice
+  ).toFixed(2);
 
-function showLineChart(subject, marks) {
+  //Die Cutting
+  var dieCutting_trqty = document.getElementById("dieCutting_trqty").value;
+  var dieCutting_trprice = document.getElementById("dieCutting_trprice").value;
+  var dieCutting_sml = (document.getElementById("dieCutting_sml").innerHTML =
+    parseFloat(dieCutting_trqty * dieCutting_trprice).toFixed(2));
+  document.getElementById("dieCutting_mdn").innerHTML = parseFloat(
+    dieCutting_trqty * dieCutting_trprice
+  ).toFixed(2);
+  document.getElementById("dieCutting_hlf").innerHTML = parseFloat(
+    dieCutting_trqty * dieCutting_trprice
+  ).toFixed(2);
+  document.getElementById("dieCutting_full").innerHTML = parseFloat(
+    dieCutting_trqty * dieCutting_trprice
+  ).toFixed(2);
 
-    $("#lineChart").show();
-    $("#barChart").hide();
-    $("#pieChart").hide();
-    $("#doughnutChart").hide();
+  //Packaging
+  var packaging_trqty = document.getElementById("packaging_trqty").value;
+  var packaging_trprice = document.getElementById("packaging_trprice").value;
+  var packaging_sml = (document.getElementById("packaging_sml").innerHTML =
+    parseFloat(packaging_trqty * packaging_trprice).toFixed(2));
+  document.getElementById("packaging_mdn").innerHTML = parseFloat(
+    packaging_trqty * packaging_trprice
+  ).toFixed(2);
+  document.getElementById("packaging_hlf").innerHTML = parseFloat(
+    packaging_trqty * packaging_trprice
+  ).toFixed(2);
+  document.getElementById("packaging_full").innerHTML = parseFloat(
+    packaging_trqty * packaging_trprice
+  ).toFixed(2);
 
-    var subject1 = JSON.parse("[" + subject + "]");
-    var marks1 = JSON.parse("[" + marks + "]");
+  //Carrying Cost
+  var carrying_trqty = document.getElementById("carrying_trqty").value;
+  var carrying_trprice = document.getElementById("carrying_trprice").value;
+  var carrying_sml = (document.getElementById("carrying_sml").innerHTML =
+    parseFloat(carrying_trqty * carrying_trprice).toFixed(2));
+  document.getElementById("carrying_mdn").innerHTML = parseFloat(
+    carrying_trqty * carrying_trprice
+  ).toFixed(2);
+  document.getElementById("carrying_hlf").innerHTML = parseFloat(
+    carrying_trqty * carrying_trprice
+  ).toFixed(2);
+  document.getElementById("carrying_full").innerHTML = parseFloat(
+    carrying_trqty * carrying_trprice
+  ).toFixed(2);
 
-    new Chart(document.getElementById("lineChart"), {
-        type: 'line',
-        data: {
-            labels: subject1,
-            datasets: [{
-                label: "Marks",
-                borderColor: "#3e95cd",
-                fill: false,
-                data: marks1
+  //Others(1)
+  var others1_trqty = document.getElementById("others1_trqty").value;
+  var others1_trprice = document.getElementById("others1_trprice").value;
+  var other1_price = parseFloat(others1_trqty * others1_trprice).toFixed(2);
+  var others1_sml = (document.getElementById("others1_sml").innerHTML =
+    parseFloat(others1_trqty * others1_trprice).toFixed(2));
+  document.getElementById("others1_mdn").innerHTML = other1_price;
+  document.getElementById("others1_hlf").innerHTML = other1_price;
+  document.getElementById("others1_full").innerHTML = other1_price;
 
-            }]
-        },
-        options: {
-            legend: {
-                display: false
-            },
-            title: {
-                display: true,
-                text: ''
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
+  //(13) Others (2)
+  var others2_trqty = document.getElementById("others2_trqty").value;
+  var others2_trprice = document.getElementById("others2_trprice").value;
+  var others2_sml = (document.getElementById("others2_sml").innerHTML =
+    parseFloat(others2_trqty * others2_trprice).toFixed(2));
+  document.getElementById("others2_mdn").innerHTML = parseFloat(
+    others2_trqty * others2_trprice
+  ).toFixed(2);
+  document.getElementById("others2_hlf").innerHTML = parseFloat(
+    others2_trqty * others2_trprice
+  ).toFixed(2);
+  document.getElementById("others2_full").innerHTML = parseFloat(
+    others2_trqty * others2_trprice
+  ).toFixed(2);
 
-};
+  //(14) Others (3)
+  var others3_trqty = document.getElementById("others3_trqty").value;
+  var others3_trprice = document.getElementById("others3_trprice").value;
+  var others3_sml = (document.getElementById("others3_sml").innerHTML =
+    parseFloat(others3_trqty * others3_trprice).toFixed(2));
+  document.getElementById("others3_mdn").innerHTML = parseFloat(
+    others3_trqty * others3_trprice
+  ).toFixed(2);
+  document.getElementById("others3_hlf").innerHTML = parseFloat(
+    others3_trqty * others3_trprice
+  ).toFixed(2);
+  document.getElementById("others3_full").innerHTML = parseFloat(
+    others3_trqty * others3_trprice
+  ).toFixed(2);
 
-function showPieChart(subject, marks) {
+  //Smal(D) Sub Total
+  var sml_sub =
+    parseFloat(paper_cost_td) +
+    parseFloat(plate_price_tdsml) +
+    parseFloat(print_pricesml) +
+    parseFloat(lamination_sml) +
+    parseFloat(UVL_sml) +
+    parseFloat(SpotL_sml) +
+    parseFloat(foil_sml) +
+    parseFloat(nCutting_sml) +
+    parseFloat(dieCutting_sml) +
+    parseFloat(packaging_sml) +
+    parseFloat(carrying_sml) +
+    parseFloat(others1_sml) +
+    parseFloat(others2_sml) +
+    parseFloat(others3_sml);
 
-    $("#pieChart").show();
-    $("#barChart").hide();
-    $("#lineChart").hide();
-    $("#doughnutChart").hide();
+  document.getElementById("subtotal_sml").innerHTML =
+    parseFloat(sml_sub).toFixed(2);
 
-    var subject1 = JSON.parse("[" + subject + "]");
-    var marks1 = JSON.parse("[" + marks + "]");
+  //Quarter(D) Sub Total
+  var mqtr_sub =
+    parseFloat(paper_cost_tdqty) +
+    parseFloat(plate_price_tdqtr) +
+    parseFloat(print_priceqty) +
+    parseFloat(lamination_sml) +
+    parseFloat(UVL_sml) +
+    parseFloat(SpotL_sml) +
+    parseFloat(foil_sml) +
+    parseFloat(nCutting_sml) +
+    parseFloat(dieCutting_sml) +
+    parseFloat(packaging_sml) +
+    parseFloat(carrying_sml) +
+    parseFloat(others1_sml) +
+    parseFloat(others2_sml) +
+    parseFloat(others3_sml);
 
-    new Chart(document.getElementById("pieChart"), {
-        type: 'pie',
-        data: {
-            labels: subject1,
-            datasets: [{
-                label: "Population (millions)",
-                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                data: marks1
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: ''
-            }
-        }
-    });
+  document.getElementById("subtotal_mdn").innerHTML =
+    parseFloat(mqtr_sub).toFixed(2);
 
-};
+  //Half(D) Sub Total
+  var half_sub =
+    parseFloat(paper_cost_tdhlf) +
+    parseFloat(plate_price_tdhtr) +
+    parseFloat(print_pricehlf) +
+    parseFloat(lamination_sml) +
+    parseFloat(UVL_sml) +
+    parseFloat(SpotL_sml) +
+    parseFloat(foil_sml) +
+    parseFloat(nCutting_sml) +
+    parseFloat(dieCutting_sml) +
+    parseFloat(packaging_sml) +
+    parseFloat(carrying_sml) +
+    parseFloat(others1_sml) +
+    parseFloat(others2_sml) +
+    parseFloat(others3_sml);
 
-function showDoughnutChart(subject, marks) {
+  document.getElementById("subtotal_hlf").innerHTML =
+    parseFloat(half_sub).toFixed(2);
 
-    $("#doughnutChart").show();
-    $("#barChart").hide();
-    $("#lineChart").hide();
-    $("#pieChart").hide();
+  //Full(DD) Sub Total
+  var full_sub =
+    parseFloat(paper_cost_tdfull) +
+    parseFloat(plate_price_tdfull) +
+    parseFloat(print_pricefull) +
+    parseFloat(lamination_sml) +
+    parseFloat(UVL_sml) +
+    parseFloat(SpotL_sml) +
+    parseFloat(foil_sml) +
+    parseFloat(nCutting_sml) +
+    parseFloat(dieCutting_sml) +
+    parseFloat(packaging_sml) +
+    parseFloat(carrying_sml) +
+    parseFloat(others1_sml) +
+    parseFloat(others2_sml) +
+    parseFloat(others3_sml);
 
-    var subject1 = JSON.parse("[" + subject + "]");
-    var marks1 = JSON.parse("[" + marks + "]");
+  document.getElementById("subtotal_full").innerHTML =
+    parseFloat(full_sub).toFixed(2);
 
-    new Chart(document.getElementById("doughnutChart"), {
-        type: 'doughnut',
-        data: {
-            labels: subject1,
-            datasets: [{
-                label: "Population (millions)",
-                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                data: marks1
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: ''
-            }
-        }
-    });
+  //Profit 10%
+  var profit_cal = document.getElementById("profit_rate").value;
+  var profit_psml = (document.getElementById("proFit_sml").innerHTML = (
+    (parseFloat(sml_sub) * parseFloat(profit_cal)) /
+    parseFloat(100)
+  ).toFixed(2));
+  var profit_pmdn = (document.getElementById("proFit_mdn").innerHTML = (
+    (parseFloat(mqtr_sub) * parseFloat(profit_cal)) /
+    parseFloat(100)
+  ).toFixed(2));
+  var profit_phlf = (document.getElementById("proFit_hlf").innerHTML = (
+    (parseFloat(half_sub) * parseFloat(profit_cal)) /
+    parseFloat(100)
+  ).toFixed(2));
+  var profit_pfull = (document.getElementById("proFit_full").innerHTML = (
+    (parseFloat(full_sub) * parseFloat(profit_cal)) /
+    parseFloat(100)
+  ).toFixed(2));
 
-};
+  //VAT 15%
+  var vat_cal = document.getElementById("vat_rate").value;
+  var vat_vsml = (document.getElementById("vAt_sml").innerHTML = parseFloat(
+    ((parseFloat(sml_sub) + parseFloat(profit_psml)) * parseFloat(vat_cal)) /
+      parseFloat(100)
+  ).toFixed(2));
+  var vat_vmdn = (document.getElementById("vAt_mdn").innerHTML = parseFloat(
+    ((parseFloat(mqtr_sub) + parseFloat(profit_pmdn)) * parseFloat(vat_cal)) /
+      parseFloat(100)
+  ).toFixed(2));
+  var vat_vhlf = (document.getElementById("vAt_hlf").innerHTML = parseFloat(
+    ((parseFloat(half_sub) + parseFloat(profit_phlf)) * parseFloat(vat_cal)) /
+      parseFloat(100)
+  ).toFixed(2));
+  var vat_vfull = (document.getElementById("vAt_full").innerHTML = parseFloat(
+    ((parseFloat(full_sub) + parseFloat(profit_pfull)) * parseFloat(vat_cal)) /
+      parseFloat(100)
+  ).toFixed(2));
 
-function edit_Marks() {
-    var classid = $("#exam").val();
-    // var TeachId = "<?php echo $id; ?>";
-    $.ajax({
-        type: "POST",
-        url: "get_marks.php",
-        data: {
-            classId: classid
+  //Total Costing
+  var total_cost_s = (document.getElementById("totalCost_sml").innerHTML =
+    parseFloat(
+      parseFloat(sml_sub) + parseFloat(profit_psml) + parseFloat(vat_vsml)
+    ).toFixed(2));
+  var total_cost_m = (document.getElementById("totalCost_mdn").innerHTML =
+    parseFloat(
+      parseFloat(mqtr_sub) + parseFloat(profit_pmdn) + parseFloat(vat_vmdn)
+    ).toFixed(2));
+  var total_cost_h = (document.getElementById("totalCost_hlf").innerHTML =
+    parseFloat(
+      parseFloat(half_sub) + parseFloat(profit_phlf) + parseFloat(vat_vhlf)
+    ).toFixed(2));
+  var total_cost_f = (document.getElementById("totalCost_full").innerHTML =
+    parseFloat(
+      parseFloat(full_sub) + parseFloat(profit_pfull) + parseFloat(vat_vfull)
+    ).toFixed(2));
 
-        },
-        success: function(data) {
-            $("#table1").html(data);
-
-        }
-    });
+  //Costing per unit
+  document.getElementById("CPU_S").innerHTML = parseFloat(
+    parseFloat(total_cost_s) / parseFloat(PQty)
+  ).toFixed(2);
+  document.getElementById("CPU_Q").innerHTML = parseFloat(
+    parseFloat(total_cost_m) / parseFloat(PQty)
+  ).toFixed(2);
+  document.getElementById("CPU_H").innerHTML = parseFloat(
+    parseFloat(total_cost_h) / parseFloat(PQty)
+  ).toFixed(2);
+  document.getElementById("CPU_F").innerHTML = parseFloat(
+    parseFloat(total_cost_f) / parseFloat(PQty)
+  ).toFixed(2);
 }
-
-function show_calendar1(year1, month1) {
-
-    var status = document.getElementById("status5").value.split(',');
-
-    var date_no2 = document.getElementById("date_no2").value.split(',');
-
-    document.getElementById("calendar_month_year").innerHTML = status[0];
-    //month_name[month] + " " + year;
-}
-
-function show_calendar(year1, month1) {
-
-    var status = document.getElementById("status5").value.split(',');
-
-    var date_no2 = document.getElementById("date_no2").value.split(',');
-
-    var y1 = Number(year1);
-    var m1 = Number(month1);
-
-    var count5 = date_no2.length;
-    //alert(count5);
-    var d = new Date(); //new Date('2017','08','25');
-    var month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-        'Octomber', 'November', 'December'
-    ];
-
-    var month = m1 - 1; //0-11
-    var year = y1;
-    var first_date = month_name[month] + " " + 1 + " " + year;
-
-    var tmp = new Date(first_date).toDateString();
-    // Tue Aug 01 2017...
-
-    var first_day = tmp.substring(0, 3); //Thu
-    var day_name = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    var day_no = day_name.indexOf(first_day); //4
-    var days = new Date(year, month + 1, 0).getDate(); //31
-    // Thu Aug 31 2017...
-
-    var calendar = get_calendar(day_no, days);
-
-    document.getElementById("calendar_month_year").innerHTML = month_name[month] + " " + year;
-    document.getElementById("calendar_dates").appendChild(calendar);
-
-    for (var i = 0; i < count5; i++) {
-
-        var d_no = parseInt(date_no2[i], 10);
-
-        if (status[i] == '') {
-
-
-            document.getElementById("td_" + d_no).style.background = "#00FF66";
-        }
-
-        if (status[i] == '0') {
-
-
-            document.getElementById("td_" + d_no).style.background = "#FF0033";
-
-        }
-    }
-
-};
-
-
-function get_calendar(day_no, days) {
-
-
-    var table = document.createElement('table');
-    var tr = document.createElement('tr');
-
-    table.className = 'cal-table';
-
-    // row for the day letters
-    for (var c = 0; c <= 6; c++) {
-
-        var th = document.createElement('th');
-        th.innerHTML = ['S', 'M', 'T', 'W', 'T', 'F', 'S'][c];
-        tr.appendChild(th);
-        th.className = "tHead";
-
-
-    }
-
-    table.appendChild(tr);
-
-    //create 2nd row
-
-    tr = document.createElement('tr');
-
-    var c;
-    for (c = 0; c <= 6; c++) {
-        if (c == day_no) {
-            break;
-        }
-        var td = document.createElement('td');
-        td.innerHTML = "";
-        tr.appendChild(td);
-        td.className = "td_no_number";
-        tr.className = 'cal-tr';
-    }
-
-    var count = 1;
-    for (; c <= 6; c++) {
-
-        var td = document.createElement('td');
-        td.id = "td_" + count;
-        td.className = 'cal-number-td';
-        tr.appendChild(td);
-        tr.className = 'cal-tr';
-
-        var h5 = document.createElement('h5');
-        h5.id = "h5_" + count;
-        h5.className = 'h5';
-        td.appendChild(h5);
-        h5.innerHTML = count;
-        count++;
-
-    }
-    table.appendChild(tr);
-
-    //rest of the date rows
-    ;
-    for (var r = 3; r <= 7; r++) {
-        tr = document.createElement('tr');
-        for (var c = 0; c <= 6; c++) {
-            if (count > days) {
-
-                for (; c <= 6; c++) {
-
-                    var td = document.createElement('td');
-                    td.innerHTML = "";
-                    tr.appendChild(td);
-                    td.className = "td_no_number";
-                    tr.className = 'cal-tr';
-
-                }
-
-                table.appendChild(tr);
-                return table;
-            }
-
-            var td = document.createElement('td');
-            //td.innerHTML = count;
-            td.id = "td_" + count;
-            //document.getElementByClass("cal-number-td").style.background = "#00FF66";
-            td.style.color = "#000";
-            td.className = 'cal-number-td';
-
-            tr.appendChild(td);
-
-            var h5 = document.createElement('h5');
-            h5.className = 'h5';
-            td.appendChild(h5);
-            h5.innerHTML = count;
-            count++;
-            tr.className = 'cal-tr';
-
-        }
-        table.appendChild(tr);
-
-
-    }
-
-};
-
-function showAHistory() {
-
-    var year = $('#year').val();
-    var month = $('#month').val();
-    var my_index = $('#my_index').val();
-    var do1 = "getStudentAttendance";
-
-    if (month == 'Select Month') {
-        $("#btnSubmit").attr("disabled", true);
-        $('#month').addClass('is-invalid has-feedback');
-
-        $('#divMonth1').append(
-            '<p id="spanExam" class="far fa-times-circle is-invalid" style="color:red;">The exam is required</p>'
-        );
-
-        $("#month").change(function() {
-            //MSK-00128-classroom
-            $("#btnSubmit").attr("disabled", false);
-            $('#month').removeClass('is-invalid has-feedback');
-            $('#spanExam').remove();
-
-        });
-
-    } else {
-
-        var xhttp1 = new XMLHttpRequest();
-
-        xhttp1.onreadystatechange = function() {
-
-            if (this.readyState == 4 && this.status == 200) {
-
-                document.getElementById('table1').innerHTML = this.responseText;
-                show_calendar(year, month);
-                $(function() {
-                    $("#example1").DataTable();
-                });
-                window.scrollTo(0, document.body.scrollHeight);
-
-            }
-
-        };
-
-        xhttp1.open("GET", "get_marks.php?year=" + year + "&month=" + month + "&my_index=" + my_index + "&do=" + do1, true);
-        xhttp1.send();
-    }
-
-};
