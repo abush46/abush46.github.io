@@ -1,0 +1,614 @@
+<html>
+
+<head>
+    <title>Printing press calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="page" class="container-fluid">
+
+        <div class="header">
+            <div class="container">
+                <h1 class="entry-title">Easily Calculate Offset Printing Costs</h1>
+            </div>
+        </div>
+
+        <div id="content" class="site-content">
+            <div class="breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+                <div class="container">
+                    <span>
+                        <span>
+                            <a href="https://ethiopianschoolsystem.com.et/PPCost/pp_calc.php">Home</a>
+                            » <span class="breadcrumb_last" aria-current="page">Easily Calculate Offset Printing
+                                Costs</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div id="content-inside" class="container">
+                <div id="primary" class="content-area">
+                    <main id="main" class="site-main" role="main">
+                        <article id="post-857" class="post-857 page type-page status-publish hentry">
+
+                            <div class="entry-content">
+                                <h1 align="center">
+                                    <span style="text-decoration: underline;">
+                                        <strong>For Offset Printing Pricing Calculation</strong>
+                                    </span>
+                                </h1>
+
+                                <div id="print_qty">
+                                    <p>
+                                        Print Qty.:&nbsp;<input id="PQty" type="number" onchange="calChange()">
+                                    </p>
+                                </div>
+                                <div id="size_Print&amp;Paper">
+                                    <h5>PRINT &amp;PAPER SIZES</h5>
+                                    <div id="PS">
+                                        <p>
+                                            Print Size (CM):&nbsp;W<input id="printW" type="number"
+                                                onchange="calChange()">
+                                            &nbsp;X &nbsp;<input id="printH" type="number"
+                                                onchange="return calChange()">H
+                                        </p>
+                                        <p>
+                                            Paper Size (CM):&nbsp;W<input id="paperW" type="number" value="86"
+                                                onchange="calChange()">
+                                            &nbsp;X &nbsp;<input id="paperH" type="number" value="61"
+                                                onchange="return calChange()">H
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="Print_color">
+                                    <h5>PRINTING COLOR</h5>
+                                    <p>
+                                        Color. :&nbsp;<input id="printing_Color" type="number" value="4" min="1"
+                                            max="10" ,="" step="1" onchange="calChange()">
+                                    </p>
+                                    <p>
+                                        Print-Single(1)/Both(2) Side.:&nbsp;<input id="printing_Color_side"
+                                            type="number" value="1" min="1" max="2" ,="" step="1"
+                                            onchange="calChange()">
+                                    </p>
+                                </div>
+                                <div id="Paper_cal">
+                                    <h5>PAPER</h5>
+                                    <p>
+                                        Per Packet Sheets :&nbsp;<input id="packet_sheets" type="number" min="1"
+                                            max="1000" value="100" onchange="calChange()">
+                                    </p>
+                                    <p>Per Sheet Printing Qty :&nbsp;</p>
+                                    <h2 id="printing_sheets"></h2>
+                                    <p>Total Sheets for Printing :&nbsp;</p>
+                                    <h2 id="total_sheets"></h2>
+                                    <p>Total Packet Needed :&nbsp;</p>
+                                    <h2 id="total_packets"></h2>
+                                </div>
+                                <div id="paper_pricing">
+                                    <h5>PAPER PRICING</h5>
+                                    <p>
+                                        Per Packet Price :&nbsp;<input id="packet_price" type="number"
+                                            onchange="calChange()">
+                                    </p>
+                                </div>
+                                <div id="plate_pricing">
+                                    <h5>PLATE PRICING</h5>
+                                    <p>
+                                        Plate (CTP) Demy (D) :&nbsp;<input id="plateD" type="number" value="200"
+                                            onchange="calChange()">
+                                    </p>
+                                    <p>
+                                        Plate (CTP) Double Demy (DD) :&nbsp;<input id="plateDD" type="number"
+                                            value="350" onchange="calChange()">
+                                    </p>
+                                </div>
+                                <div id="printing_cal">
+                                    <h5>PRINTING PRICING</h5>
+                                    <p>
+                                        Printing (Per 1000 Qty.) Demy (D) :&nbsp;<input id="printing_priceD"
+                                            type="number" value="150" onchange="calChange()">
+                                    </p>
+                                    <p>
+                                        Printing (Per 1000 Qty.) Double Demy (DD) <input id="printing_priceDD"
+                                            type="number" value="700" onchange="calChange()">
+                                    </p>
+                                </div>
+                                <figure class="wp-block-table">
+                                    <h3>TOTAL QTY. OF PRINTING IMPRESSIONS</h3>
+                                    <table class="table" id="table_id">
+                                        <tbody>
+                                            <tr id="tr_heading">
+                                                <td class="has-text-align-center" data-align="center" align="center">
+                                                    <strong>Printing Details</strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" align="center">
+                                                    <strong>Width</strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" align="center">
+                                                    <strong></strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" align="center">
+                                                    <strong>Height</strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" align="center">
+                                                    <strong>Total Impressions</strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">Small
+                                                    Size(Demy)
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="SDW" align="center"></h5>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">X</td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="SDH" align="center"></h5>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="SDW_qty" align="center"></h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">Quarter Size
+                                                    (Demy)</td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="QDW" align="center"></h5>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">X</td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="QDH" align="center"></h5>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="QDW_qty" align="center"></h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">Half Size
+                                                    (Demy)
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="HDW" align="center"></h5>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">X</td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="HDH" align="center"></h5>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="HDW_qty" align="center"></h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">Full Size
+                                                    (Double
+                                                    Demy)</td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="FDW" align="center"></h5>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">X</td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="FDH" align="center"></h5>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <h5 id="FDW_qty" align="center"></h5>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </figure>
+                                <figure class="wp-block-table">&gt;
+                                    </p>
+                                    <table class="table table-striped" id="table_id">
+                                        <tbody>
+                                            <tr id="tr_heading">
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <strong>#SL</strong>
+                                                </td>
+                                                <td align="center">
+                                                    <strong>Details</strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <strong>Qty</strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <strong>Price</strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <strong>Small (D)</strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <strong>Quarter (D)</strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <strong>Half (D)</strong>
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <strong>Full (DD)</strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">01</td>
+                                                <td>Paper</td>
+                                                <td class="has-text-align-center" data-align="center" id="papertd_qty">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="sheet_cost">
+                                                </td>
+                                                <td class="has-text-align-center qtysml" data-align="center"
+                                                    id="paper_cost_td"></td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="paper_cost_tdqty">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="paper_cost_tdhlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="paper_cost_tdfull"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">02</td>
+                                                <td>Plate (CTP)</td>
+                                                <td class="has-text-align-center" data-align="center" id="plate_tdqty">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="plate_pricetd">
+                                                </td>
+                                                <td class="has-text-align-center qtysml" data-align="center"
+                                                    id="plate_price_tdsml"></td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="plate_price_tdqtr"></td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="plate_price_tdhtr"></td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="plate_price_tdfull"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">03</td>
+                                                <td>Printing</td>
+                                                <td class="has-text-align-center" data-align="center"></td>
+                                                <td class="has-text-align-center" data-align="center"></td>
+                                                <td class="has-text-align-center qtysml" data-align="center"
+                                                    id="print_pricesml"></td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="print_priceqty">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="print_pricehlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="print_pricefull">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">04</td>
+                                                <td>Lamination</td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <input id="Laminatio_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center">
+                                                    <input id="Laminatio_trprice" type="number" value="0.003"
+                                                        onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center qtysml" data-align="center"
+                                                    id="lamination_sml"></td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="lamination_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="lamination_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="lamination_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">05</td>
+                                                <td>UV Lamination</td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="UVL_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="UVL_trprice" type="number" value="0.004"
+                                                        onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="UVL_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="UVL_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="UVL_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="UVL_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">06</td>
+                                                <td>Spot Lamination</td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="SpotL_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="SpotL_trprice" type="number" value="0.005"
+                                                        onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="SpotL_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="SpotL_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="SpotL_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="SpotL_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">07</td>
+                                                <td>Foil</td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="foil_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="foil_trprice" type="number" value="0.006"
+                                                        onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-centerl" data-align="center" id="foil_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="foil_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="foil_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="foil_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">08</td>
+                                                <td>Normal Cutting</td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="nCutting_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="nCutting_trprice" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="nCutting_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="nCutting_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="nCutting_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="nCutting_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">09</td>
+                                                <td>Die-Cutting</td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="dieCutting_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="dieCutting_trprice" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="dieCutting_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="dieCutting_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="dieCutting_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="dieCutting_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">10</td>
+                                                <td>Packaging</td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="packaging_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="packaging_trprice" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="packaging_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="packaging_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="packaging_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="packaging_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">11</td>
+                                                <td>Carrying Cost</td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="carrying_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="carrying_trprice" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="carrying_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="carrying_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="carrying_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="carrying_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">12</td>
+                                                <td>Others</td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="others1_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="others1_trprice" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others1_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others1_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others1_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others1_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">13</td>
+                                                <td>
+                                                    <input type="text">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="others2_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="others2_trprice" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others2_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others2_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others2_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others2_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">14</td>
+                                                <td>
+                                                    <input type="text">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="others3_trqty" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="others3_trprice" type="number" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others3_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others3_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others3_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="others3_full">
+                                                </td>
+                                            </tr>
+                                            <tr id="tr_subtotal">
+                                                <td class="has-text-align-center" data-align="center">15</td>
+                                                <td>Sub Total</td>
+                                                <td class="has-text-align-center" data-align="center"></td>
+                                                <td class="has-text-align-center" data-align="center"></td>
+                                                <td class="has-text-align-center" data-align="center" id="subtotal_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="subtotal_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="subtotal_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="subtotal_full">
+                                                </td>
+                                            </tr>
+                                            <tr id="tr_profit">
+                                                <td class="has-text-align-center" data-align="center">16</td>
+                                                <td>Profit (%)</td>
+                                                <td class="has-text-align-center" tr_input="" data-align="center">
+                                                    <input id="profit_rate" type="number" min="0" max="100" value="10"
+                                                        step=".1" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"></td>
+                                                <td class="has-text-align-center" data-align="center" id="proFit_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="proFit_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="proFit_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="proFit_full">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="has-text-align-center" data-align="center">17</td>
+                                                <td>VAT (%)</td>
+                                                <td class="has-text-align-center tr_input" data-align="center">
+                                                    <input id="vat_rate" type="number" min="0" max="100" value="15"
+                                                        step=".1" onchange="calChange()">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"></td>
+                                                <td class="has-text-align-center" data-align="center" id="vAt_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="vAt_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="vAt_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center" id="vAt_full">
+                                                </td>
+                                            </tr>
+                                            <tr id="tr_total">
+                                                <td class="has-text-align-center" data-align="center">18</td>
+                                                <td>Total</td>
+                                                <td class="has-text-align-center" data-align="center"></td>
+                                                <td class="has-text-align-center" data-align="center"></td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="totalCost_sml">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="totalCost_mdn">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="totalCost_hlf">
+                                                </td>
+                                                <td class="has-text-align-center" data-align="center"
+                                                    id="totalCost_full">
+                                                </td>
+                                            </tr>
+                                            <tr id="tr_costunit">
+                                                <td class="has-text-align-center" data-align="center">19</td>
+                                                <td>@Cost per unit</td>
+
+                                                <td class="has-text-align-center" data-align="center"></td>
+
+                                                <td class="has-text-align-center" data-align="center"></td>
+
+                                                <td class="has-text-align-center" data-align="center" id="CPU_S">
+                                                    cost
+                                                </td>
+
+                                                <td class="has-text-align-center" data-align="center" id="CPU_Q">
+                                                </td>
+
+                                                <td class="has-text-align-center" data-align="center" id="CPU_H">
+                                                </td>
+
+                                                <td class="has-text-align-center" data-align="center" id="CPU_F">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </figure>
+                            </div>
+                        </article>
+                    </main>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="PScripts.js"></script>
+</body>
+
+</html>
+<!--
+*** This site runs WP Super Minify plugin v1.5.1 - http://wordpress.org/plugins/wp-super-minify ***
+*** Total size saved: 6.661% | Size before compression: 56857 bytes | Size after compression: 53070 bytes. ***
+-->
+<!-- Page generated by LiteSpeed Cache 5.2 on 2022-09-15 18:44:59 -->
